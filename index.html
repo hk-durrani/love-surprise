@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Just For You ❤️</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  font-family:'Segoe UI',sans-serif;
+  overflow:hidden;
+}
+
+.page{
+  display:none;
+  background:white;
+  padding:30px;
+  width:360px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,0.3);
+}
+.page.active{display:block}
+
+/* BUTTONS */
+button{
+  padding:12px 28px;
+  font-size:16px;
+  border:none;
+  border-radius:30px;
+  margin:10px;
+  cursor:pointer;
+  transition:.3s;
+}
+button:hover{transform:scale(1.12)}
+.yes{background:#ff4d6d;color:#fff}
+.no,.move{background:#ccc;position:relative}
+
+/* BALLOONS UP */
+.balloon{
+  position:fixed;
+  bottom:-80px;
+  width:28px;
+  height:36px;
+  border-radius:50%;
+  animation:fly 5s linear forwards;
+}
+@keyframes fly{
+  to{transform:translateY(-120vh);opacity:0}
+}
+
+/* CONFETTI DOWN */
+.confetti{
+  position:fixed;
+  top:-20px;
+  width:10px;
+  height:14px;
+  animation:fall 4s linear forwards;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);opacity:0}
+}
+
+/* FINAL CARD */
+.card{
+  background:#fff;
+  padding:15px 25px;
+  border-radius:12px;
+  font-size:22px;
+  color:#ff2e63;
+  font-weight:600;
+  display:inline-block;
+  transform:translateX(-130%);
+  animation:slideIn 2s ease forwards;
+}
+@keyframes slideIn{
+  to{transform:translateX(0)}
+}
+
+/* HEART */
+svg{
+  width:260px;
+  margin:25px auto 0;
+}
+path{
+  fill:none;
+  stroke:#e60026;
+  stroke-width:5;
+  stroke-dasharray:2000;
+  stroke-dashoffset:2000;
+  animation:draw 4.5s ease forwards 2.2s;
+}
+@keyframes draw{
+  to{stroke-dashoffset:0}
+}
+
+.final-text{
+  margin-top:20px;
+  font-size:26px;
+  color:#e60026;
+  opacity:0;
+  animation:fade 2s ease forwards 7s;
+}
+@keyframes fade{to{opacity:1}}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
+  <h2>Do you love me? 💖</h2>
+  <button class="yes" onclick="go(2)">YES</button>
+  <button class="no" onmouseover="move(this)">NO</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+  <h2>How much do you love me?💖🥺</h2>
+  <button class="yes" onclick="go(3)">VERY MUCH</button>
+  <button class="move" onmouseover="move(this)">NORMAL</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+  <h2>Will you go on a date with me? 🌹</h2>
+  <button class="yes" onclick="go(4)">YES</button>
+  <button class="no" onmouseover="move(this)">NO</button>
+</div>
+
+<!-- FINAL PAGE -->
+<div class="page" id="p4">
+  <div class="card">I love you Alishba ❤️</div>
+
+  <!-- COMPLETE HEART PATH -->
+  <svg viewBox="0 0 512 512">
+    <path d="
+      M256 464
+      C256 464 32 288 32 176
+      C32 96 96 64 160 96
+      C208 120 256 176 256 176
+      C256 176 304 120 352 96
+      C416 64 480 96 480 176
+      C480 288 256 464 256 464 Z"/>
+  </svg>
+
+  <div class="final-text">
+    I LOVE YOU Meri Jan❤️<br>
+    Thank you for coming into my life
+  </div>
+</div>
+
+<script>
+function go(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('p'+n).classList.add('active');
+  balloons();
+  confetti();
+}
+
+function move(btn){
+  btn.style.transform=`translate(${Math.random()*220-110}px,${Math.random()*220-110}px)`;
+}
+
+/* MORE BALLOONS */
+function balloons(){
+  for(let i=0;i<20;i++){
+    let b=document.createElement("div");
+    b.className="balloon";
+    b.style.left=Math.random()*100+"vw";
+    b.style.background=`hsl(${Math.random()*360},70%,60%)`;
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),5000);
+  }
+}
+
+/* CONFETTI FROM TOP */
+function confetti(){
+  for(let i=0;i<30;i++){
+    let c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=`hsl(${Math.random()*360},80%,60%)`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
+  }
+}
+</script>
+
+</body>
+</html>
+
+
